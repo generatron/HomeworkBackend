@@ -28,10 +28,24 @@ Template: /PerfectSwift/server/ServerModuleInit.swift.vmg
 import PerfectLib
 
 public func PerfectServerModuleInit() {
+	
+	PageHandlerRegistry.addPageHandler("IndexHandler") {
+		
+		// This closure is called in order to create the handler object.
+		// It is called once for each relevant request.
+		// The supplied WebResponse object can be used to tailor the return value.
+		// However, all request processing should take place in the `valuesForResponse` function.
+		(r:WebResponse) -> PageHandler in
+		
+		return IndexHandler()
+	}
+	
+	
 	Routing.Handler.registerGlobally()
 	Routing.Routes["GET", ["/assets/*/*"]] = { _ in return StaticFileHandler() }
 	Routing.Routes["GET", ["/uploads/*"]] = { _ in return StaticFileHandler() }
-  
+  	
+  	
 	//Routes for HWAssessment
 	Routing.Routes["GET", ["/api/hWAssessment"] ] = { (_:WebResponse) in return HWAssessmentListHandler() }
 	Routing.Routes["POST", ["/api/hWAssessment"] ] = { (_:WebResponse) in return HWAssessmentCreateHandler() }
@@ -73,7 +87,7 @@ public func PerfectServerModuleInit() {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 28.77 minutes to type the 2877+ characters in this file.
+approximately 33.11 minutes to type the 3311+ characters in this file.
  */
 
 
