@@ -1,0 +1,4 @@
+1) Create a OSX or IOS framework project
+2) Add all the *Server.swift, and *Handler.swift to the project
+3) Build settings->Embedded Contents Swift Code->Yes
+4) Build and drop .framework into your PerfectLibraries folder.
