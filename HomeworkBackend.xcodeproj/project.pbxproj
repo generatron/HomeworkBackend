@@ -12,6 +12,28 @@
 		CF9801211C71A3A200A48678 /* PerfectHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801201C71A3A200A48678 /* PerfectHandlers.swift */; };
 		CF9801281C71A3A300A48678 /* HomeworkBackend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF9801191C71A3A200A48678 /* HomeworkBackend.framework */; };
 		CF98012D1C71A3A300A48678 /* HomeworkBackendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98012C1C71A3A300A48678 /* HomeworkBackendTests.swift */; };
+		CF9801541C71A4FE00A48678 /* BaseRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801371C71A4FE00A48678 /* BaseRequestHandler.swift */; };
+		CF9801551C71A4FE00A48678 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801381C71A4FE00A48678 /* Config.swift */; };
+		CF9801571C71A4FE00A48678 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98013A1C71A4FE00A48678 /* Extensions.swift */; };
+		CF9801581C71A4FE00A48678 /* HomeworkServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98013B1C71A4FE00A48678 /* HomeworkServer.swift */; };
+		CF9801591C71A4FE00A48678 /* HWAssessment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98013C1C71A4FE00A48678 /* HWAssessment.swift */; };
+		CF98015A1C71A4FE00A48678 /* HWAssessmentHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98013D1C71A4FE00A48678 /* HWAssessmentHandlers.swift */; };
+		CF98015C1C71A4FE00A48678 /* HWAssessmentRepositoryMySQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98013F1C71A4FE00A48678 /* HWAssessmentRepositoryMySQL.swift */; };
+		CF98015D1C71A4FE00A48678 /* HWAssignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801401C71A4FE00A48678 /* HWAssignment.swift */; };
+		CF98015E1C71A4FE00A48678 /* HWAssignmentHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801411C71A4FE00A48678 /* HWAssignmentHandlers.swift */; };
+		CF9801601C71A4FE00A48678 /* HWAssignmentRepositoryMySQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801431C71A4FE00A48678 /* HWAssignmentRepositoryMySQL.swift */; };
+		CF9801611C71A4FE00A48678 /* HWCourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801441C71A4FE00A48678 /* HWCourse.swift */; };
+		CF9801621C71A4FE00A48678 /* HWCourseHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801451C71A4FE00A48678 /* HWCourseHandlers.swift */; };
+		CF9801631C71A4FE00A48678 /* HWCourseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801461C71A4FE00A48678 /* HWCourseList.swift */; };
+		CF9801641C71A4FE00A48678 /* HWCourseListHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801471C71A4FE00A48678 /* HWCourseListHandlers.swift */; };
+		CF9801661C71A4FE00A48678 /* HWCourseListRepositoryMySQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801491C71A4FE00A48678 /* HWCourseListRepositoryMySQL.swift */; };
+		CF9801681C71A4FE00A48678 /* HWCourseRepositoryMySQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98014B1C71A4FE00A48678 /* HWCourseRepositoryMySQL.swift */; };
+		CF9801691C71A4FE00A48678 /* instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = CF98014C1C71A4FE00A48678 /* instructions.txt */; };
+		CF98016A1C71A4FE00A48678 /* LICENSE.AFFERO.TXT in Resources */ = {isa = PBXBuildFile; fileRef = CF98014D1C71A4FE00A48678 /* LICENSE.AFFERO.TXT */; };
+		CF98016B1C71A4FE00A48678 /* LICENSE.MIT.TXT in Resources */ = {isa = PBXBuildFile; fileRef = CF98014E1C71A4FE00A48678 /* LICENSE.MIT.TXT */; };
+		CF98016C1C71A4FE00A48678 /* perfectServerFcgi.sh in Resources */ = {isa = PBXBuildFile; fileRef = CF98014F1C71A4FE00A48678 /* perfectServerFcgi.sh */; };
+		CF98016D1C71A4FE00A48678 /* PersistenceManagerMySQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801501C71A4FE00A48678 /* PersistenceManagerMySQL.swift */; };
+		CF98016F1C71A4FE00A48678 /* RepositoryMySQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9801521C71A4FE00A48678 /* RepositoryMySQL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +55,28 @@
 		CF9801271C71A3A300A48678 /* HomeworkBackendTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeworkBackendTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF98012C1C71A3A300A48678 /* HomeworkBackendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkBackendTests.swift; sourceTree = "<group>"; };
 		CF98012E1C71A3A300A48678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF9801371C71A4FE00A48678 /* BaseRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseRequestHandler.swift; path = Homework/BaseRequestHandler.swift; sourceTree = SOURCE_ROOT; };
+		CF9801381C71A4FE00A48678 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = Homework/Config.swift; sourceTree = SOURCE_ROOT; };
+		CF98013A1C71A4FE00A48678 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Homework/Extensions.swift; sourceTree = SOURCE_ROOT; };
+		CF98013B1C71A4FE00A48678 /* HomeworkServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeworkServer.swift; path = Homework/HomeworkServer.swift; sourceTree = SOURCE_ROOT; };
+		CF98013C1C71A4FE00A48678 /* HWAssessment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWAssessment.swift; path = Homework/HWAssessment.swift; sourceTree = SOURCE_ROOT; };
+		CF98013D1C71A4FE00A48678 /* HWAssessmentHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWAssessmentHandlers.swift; path = Homework/HWAssessmentHandlers.swift; sourceTree = SOURCE_ROOT; };
+		CF98013F1C71A4FE00A48678 /* HWAssessmentRepositoryMySQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWAssessmentRepositoryMySQL.swift; path = Homework/HWAssessmentRepositoryMySQL.swift; sourceTree = SOURCE_ROOT; };
+		CF9801401C71A4FE00A48678 /* HWAssignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWAssignment.swift; path = Homework/HWAssignment.swift; sourceTree = SOURCE_ROOT; };
+		CF9801411C71A4FE00A48678 /* HWAssignmentHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWAssignmentHandlers.swift; path = Homework/HWAssignmentHandlers.swift; sourceTree = SOURCE_ROOT; };
+		CF9801431C71A4FE00A48678 /* HWAssignmentRepositoryMySQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWAssignmentRepositoryMySQL.swift; path = Homework/HWAssignmentRepositoryMySQL.swift; sourceTree = SOURCE_ROOT; };
+		CF9801441C71A4FE00A48678 /* HWCourse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWCourse.swift; path = Homework/HWCourse.swift; sourceTree = SOURCE_ROOT; };
+		CF9801451C71A4FE00A48678 /* HWCourseHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWCourseHandlers.swift; path = Homework/HWCourseHandlers.swift; sourceTree = SOURCE_ROOT; };
+		CF9801461C71A4FE00A48678 /* HWCourseList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWCourseList.swift; path = Homework/HWCourseList.swift; sourceTree = SOURCE_ROOT; };
+		CF9801471C71A4FE00A48678 /* HWCourseListHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWCourseListHandlers.swift; path = Homework/HWCourseListHandlers.swift; sourceTree = SOURCE_ROOT; };
+		CF9801491C71A4FE00A48678 /* HWCourseListRepositoryMySQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWCourseListRepositoryMySQL.swift; path = Homework/HWCourseListRepositoryMySQL.swift; sourceTree = SOURCE_ROOT; };
+		CF98014B1C71A4FE00A48678 /* HWCourseRepositoryMySQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HWCourseRepositoryMySQL.swift; path = Homework/HWCourseRepositoryMySQL.swift; sourceTree = SOURCE_ROOT; };
+		CF98014C1C71A4FE00A48678 /* instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = instructions.txt; path = Homework/instructions.txt; sourceTree = SOURCE_ROOT; };
+		CF98014D1C71A4FE00A48678 /* LICENSE.AFFERO.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.AFFERO.TXT; path = Homework/LICENSE.AFFERO.TXT; sourceTree = SOURCE_ROOT; };
+		CF98014E1C71A4FE00A48678 /* LICENSE.MIT.TXT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.MIT.TXT; path = Homework/LICENSE.MIT.TXT; sourceTree = SOURCE_ROOT; };
+		CF98014F1C71A4FE00A48678 /* perfectServerFcgi.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = perfectServerFcgi.sh; path = Homework/perfectServerFcgi.sh; sourceTree = SOURCE_ROOT; };
+		CF9801501C71A4FE00A48678 /* PersistenceManagerMySQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersistenceManagerMySQL.swift; path = Homework/PersistenceManagerMySQL.swift; sourceTree = SOURCE_ROOT; };
+		CF9801521C71A4FE00A48678 /* RepositoryMySQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryMySQL.swift; path = Homework/RepositoryMySQL.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +122,28 @@
 				CF98011C1C71A3A200A48678 /* HomeworkBackend.h */,
 				CF98011E1C71A3A200A48678 /* index.mustache */,
 				CF9801201C71A3A200A48678 /* PerfectHandlers.swift */,
+				CF9801371C71A4FE00A48678 /* BaseRequestHandler.swift */,
+				CF9801381C71A4FE00A48678 /* Config.swift */,
+				CF98013A1C71A4FE00A48678 /* Extensions.swift */,
+				CF98013B1C71A4FE00A48678 /* HomeworkServer.swift */,
+				CF98013C1C71A4FE00A48678 /* HWAssessment.swift */,
+				CF98013D1C71A4FE00A48678 /* HWAssessmentHandlers.swift */,
+				CF98013F1C71A4FE00A48678 /* HWAssessmentRepositoryMySQL.swift */,
+				CF9801401C71A4FE00A48678 /* HWAssignment.swift */,
+				CF9801411C71A4FE00A48678 /* HWAssignmentHandlers.swift */,
+				CF9801431C71A4FE00A48678 /* HWAssignmentRepositoryMySQL.swift */,
+				CF9801441C71A4FE00A48678 /* HWCourse.swift */,
+				CF9801451C71A4FE00A48678 /* HWCourseHandlers.swift */,
+				CF9801461C71A4FE00A48678 /* HWCourseList.swift */,
+				CF9801471C71A4FE00A48678 /* HWCourseListHandlers.swift */,
+				CF9801491C71A4FE00A48678 /* HWCourseListRepositoryMySQL.swift */,
+				CF98014B1C71A4FE00A48678 /* HWCourseRepositoryMySQL.swift */,
+				CF98014C1C71A4FE00A48678 /* instructions.txt */,
+				CF98014D1C71A4FE00A48678 /* LICENSE.AFFERO.TXT */,
+				CF98014E1C71A4FE00A48678 /* LICENSE.MIT.TXT */,
+				CF98014F1C71A4FE00A48678 /* perfectServerFcgi.sh */,
+				CF9801501C71A4FE00A48678 /* PersistenceManagerMySQL.swift */,
+				CF9801521C71A4FE00A48678 /* RepositoryMySQL.swift */,
 				CF9801221C71A3A200A48678 /* Info.plist */,
 			);
 			path = HomeworkBackend;
@@ -183,7 +249,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF98016A1C71A4FE00A48678 /* LICENSE.AFFERO.TXT in Resources */,
+				CF9801691C71A4FE00A48678 /* instructions.txt in Resources */,
+				CF98016B1C71A4FE00A48678 /* LICENSE.MIT.TXT in Resources */,
 				CF98011F1C71A3A200A48678 /* index.mustache in Resources */,
+				CF98016C1C71A4FE00A48678 /* perfectServerFcgi.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +272,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF9801211C71A3A200A48678 /* PerfectHandlers.swift in Sources */,
+				CF98015D1C71A4FE00A48678 /* HWAssignment.swift in Sources */,
+				CF9801681C71A4FE00A48678 /* HWCourseRepositoryMySQL.swift in Sources */,
+				CF9801641C71A4FE00A48678 /* HWCourseListHandlers.swift in Sources */,
+				CF9801541C71A4FE00A48678 /* BaseRequestHandler.swift in Sources */,
+				CF9801591C71A4FE00A48678 /* HWAssessment.swift in Sources */,
+				CF9801551C71A4FE00A48678 /* Config.swift in Sources */,
+				CF9801581C71A4FE00A48678 /* HomeworkServer.swift in Sources */,
+				CF9801611C71A4FE00A48678 /* HWCourse.swift in Sources */,
+				CF9801571C71A4FE00A48678 /* Extensions.swift in Sources */,
+				CF9801661C71A4FE00A48678 /* HWCourseListRepositoryMySQL.swift in Sources */,
+				CF98016F1C71A4FE00A48678 /* RepositoryMySQL.swift in Sources */,
+				CF9801631C71A4FE00A48678 /* HWCourseList.swift in Sources */,
+				CF98015C1C71A4FE00A48678 /* HWAssessmentRepositoryMySQL.swift in Sources */,
+				CF9801601C71A4FE00A48678 /* HWAssignmentRepositoryMySQL.swift in Sources */,
+				CF98015A1C71A4FE00A48678 /* HWAssessmentHandlers.swift in Sources */,
+				CF98016D1C71A4FE00A48678 /* PersistenceManagerMySQL.swift in Sources */,
+				CF98015E1C71A4FE00A48678 /* HWAssignmentHandlers.swift in Sources */,
+				CF9801621C71A4FE00A48678 /* HWCourseHandlers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
