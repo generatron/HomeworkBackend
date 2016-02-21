@@ -30,9 +30,10 @@ import PerfectLib
 class HWCourseListHandler: RequestHandler  {
   
   func handleRequest(request: WebRequest, response: WebResponse) {
-  	let hWCourses : [HWCourse]  = PersistenceManagerMySQL.sharedInstance.hWCourseRepository.list()
+  do{
+  	let hWCourses : [HWCourse]  = try PersistenceManagerMySQL.sharedInstance.hWCourseRepository.list()
   	print (NSJSONSerialization.isValidJSONObject (hWCourses ))
-  	do{
+  	
         let json = try HWCourse.encodeList(hWCourses );
         try response.outputJson(json)
   	}catch{
@@ -104,7 +105,7 @@ class HWCourseDeleteHandler: RequestHandler {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 27.46 minutes to type the 2746+ characters in this file.
+approximately 27.54 minutes to type the 2754+ characters in this file.
  */
 
 

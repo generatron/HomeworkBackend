@@ -73,6 +73,7 @@ extension WebResponse {
     
     func outputJson(data: String) throws {
         addHeader("content-type", value: "application/json")
+        addHeader("Access-Control-Allow-Origin", value:"*")
         appendBodyString(data)
     }
     
@@ -149,7 +150,7 @@ extension NSDate {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 34.49 minutes to type the 3449+ characters in this file.
+approximately 35.09 minutes to type the 3509+ characters in this file.
  */
 
 

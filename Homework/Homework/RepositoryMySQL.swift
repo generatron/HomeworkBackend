@@ -34,6 +34,8 @@ enum RepositoryError : ErrorType {
     case Update(UInt32)
     case Delete(UInt32)
     case CreateTable(UInt32)
+    case List(UInt32)
+    case Retrieve(UInt32)
 }
 
 class RepositoryMySQL {
@@ -49,7 +51,7 @@ class RepositoryMySQL {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 3.2 minutes to type the 320+ characters in this file.
+approximately 3.7 minutes to type the 370+ characters in this file.
  */
 
 

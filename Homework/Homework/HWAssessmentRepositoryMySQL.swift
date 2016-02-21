@@ -19,26 +19,26 @@ Engineered using http://www.generatron.com/
 
 [GENERATRON]
 Generator :   System Templates
-Filename:     HWCourseRepositoryMySQL.swift
-Description:  Persistence code for for HWCourse
+Filename:     HWAssessmentRepositoryMySQL.swift
+Description:  Persistence code for for HWAssessment
 Project:      Homework
 Template: /PerfectSwift/server/EntityRepositoryMySQL.swift.vm
  */
 
 
 import MySQL
-class HWCourseRepositoryMySQL : RepositoryMySQL {
+class HWAssessmentRepositoryMySQL : RepositoryMySQL {
 func createTable() throws ->  Int {
-   let rs = try db.query("CREATE TABLE IF NOT EXISTS HWCourse (id BIGINT(20) NOT NULL AUTO_INCREMENT, name VARCHAR(255), period INT(10), PRIMARY KEY (id))")
+   let rs = try db.query("CREATE TABLE IF NOT EXISTS HWAssessment (dateAssigned Date, dateDue Date, id BIGINT(20) NOT NULL AUTO_INCREMENT, name VARCHAR(255), type INT(10), PRIMARY KEY (id))")
    let errorCode = db.errorCode()
         if errorCode > 0 {
             throw RepositoryError.CreateTable(errorCode)
       }
       return 0;
 }
-func insert(entity: HWCourse) throws -> Int {
-       	let sql = "INSERT INTO HWCourse(name,period) VALUES ( ?, ?)"
-       	
+func insert(entity: HWAssessment) throws -> Int {
+       	let sql = "INSERT INTO HWAssessment(dateAssigned,dateDue,name,type) VALUES ( ?, ?, ?, ?)"
+       	PersistenceManagerMySQL.sharedInstance.checkConnection();
        	let statement = MySQLStmt(db)
 		defer {
 			statement.close()
@@ -46,8 +46,18 @@ func insert(entity: HWCourse) throws -> Int {
 		let prepRes = statement.prepare(sql)
 		if(prepRes){
 
-			//It's transformable, not supported at the moment
-   			//statement.bindParam(entity.color.id)
+		if(entity.dateAssigned != nil){
+			statement.bindParam(entity.dateAssigned.SQLDateString)
+		}else{
+			statement.bindParam()
+		}
+		
+
+		if(entity.dateDue != nil){
+			statement.bindParam(entity.dateDue.SQLDateString)
+		}else{
+			statement.bindParam()
+		}
 		
 
 		if(entity.name != nil){
@@ -57,8 +67,8 @@ func insert(entity: HWCourse) throws -> Int {
 		}
 		
 
-		if(entity.period != nil){
-			statement.bindParam(entity.period)
+		if(entity.type != nil){
+			statement.bindParam(entity.type)
 		}else{
 			statement.bindParam()
 		}
@@ -81,13 +91,13 @@ func insert(entity: HWCourse) throws -> Int {
  	return 0
 	}
     
-	func update(entity: HWCourse) throws -> Int {
+	func update(entity: HWAssessment) throws -> Int {
         guard let id = entity.id else {
             return 0
         }
         
-        let sql = "UPDATE HWCourse SET name= ? ,period= ? WHERE id = ?"
-
+        let sql = "UPDATE HWAssessment SET dateAssigned= ? ,dateDue= ? ,name= ? ,type= ? WHERE id = ?"
+PersistenceManagerMySQL.sharedInstance.checkConnection();
 let statement = MySQLStmt(db)
 		defer {
 			statement.close()
@@ -96,8 +106,18 @@ let statement = MySQLStmt(db)
 		
 		if(prepRes){		
 
-			//It's transformable, not supported at the moment
-   			//statement.bindParam(entity.color.id)
+		if(entity.dateAssigned != nil){
+			statement.bindParam(entity.dateAssigned.SQLDateString)
+		}else{
+			statement.bindParam()
+		}
+		
+
+		if(entity.dateDue != nil){
+			statement.bindParam(entity.dateDue.SQLDateString)
+		}else{
+			statement.bindParam()
+		}
 		
 
 		if(entity.name != nil){
@@ -107,8 +127,8 @@ let statement = MySQLStmt(db)
 		}
 		
 
-		if(entity.period != nil){
-			statement.bindParam(entity.period)
+		if(entity.type != nil){
+			statement.bindParam(entity.type)
 		}else{
 			statement.bindParam()
 		}
@@ -130,50 +150,86 @@ let statement = MySQLStmt(db)
     }
     
 	func delete(id: Int) throws -> Int {
-	    let sql = "DELETE FROM hWCourse WHERE id = \(id)"
+	PersistenceManagerMySQL.sharedInstance.checkConnection();
+	    let sql = "DELETE FROM hWAssessment WHERE id = \(id)"
 	    let queryResult = db.query(sql)
 	    return id;
 	}
     
-    func retrieve(id: Int) throws -> HWCourse? {
-        let sql = "SELECT id,name,period FROM HWCourse WHERE id = \(id)"
+    func retrieve(id: Int) throws -> HWAssessment? {
+        let sql = "SELECT dateAssigned,dateDue,id,name,type FROM HWAssessment WHERE id = \(id)"
+        PersistenceManagerMySQL.sharedInstance.checkConnection();
 		let queryResult = db.query(sql)
+		 if(queryResult){
         let results = db.storeResults()!
-  		let hWCourse = HWCourse()
+  		let hWAssessment = HWAssessment()
         while let row = results.next() {
-						hWCourse.id = Int(row[0]);
-			hWCourse.name = String(row[1]);
-			hWCourse.period = Int(row[2]);
+			hWAssessment.dateAssigned = (row[0] as String).SQLStringDate();
+
+hWAssessment.dateDue = (row[1] as String).SQLStringDate();
+
+	hWAssessment.id = Int(row[2]);
+	
+	hWAssessment.name = String(row[3]);
+	
+	hWAssessment.type = Int(row[4]);
+	
             print(row)
         }
         results.close()
-	    return hWCourse;
+	    return hWAssessment;
+	    }else{
+				print(" \(db.errorCode()) \(db.errorMessage())")
+				let errorCode = db.errorCode()
+				if errorCode > 0 {
+				    throw RepositoryError.Retrieve(errorCode)
+				}
+			}
+			return nil;
     }
     
-    func list() -> [HWCourse] {
-        let sql = "SELECT id,name,period FROM HWCourse "
-        var entities = [HWCourse]()
-        
-        let queryResult = db.query(sql)
-        let results = db.storeResults()!
+    func list() throws -> [HWAssessment]  {
+        let sql = "SELECT dateAssigned,dateDue,id,name,type FROM HWAssessment "
+        PersistenceManagerMySQL.sharedInstance.checkConnection();
+        var entities = [HWAssessment]()
+         let queryResult = db.query(sql)
+        if(queryResult){
+
+		let results = db.storeResults()!
   
         while let row = results.next() {
-        	let hWCourse = HWCourse()
-						hWCourse.id = Int(row[0]);
-			hWCourse.name = String(row[1]);
-			hWCourse.period = Int(row[2]);
-			entities.append(hWCourse)
+        	let hWAssessment = HWAssessment()
+			hWAssessment.dateAssigned = (row[0] as String).SQLStringDate();
+
+hWAssessment.dateDue = (row[1] as String).SQLStringDate();
+
+	hWAssessment.id = Int(row[2]);
+	
+	hWAssessment.name = String(row[3]);
+	
+	hWAssessment.type = Int(row[4]);
+	
+			entities.append(hWAssessment)
             print(row)
         }
         results.close()
         return entities
+			}else{
+				print(" \(db.errorCode()) \(db.errorMessage())")
+				let errorCode = db.errorCode()
+				if errorCode > 0 {
+				    throw RepositoryError.List(errorCode)
+				}
+				return [];
+			}
+			
     }
 }
 
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 36.49 minutes to type the 3649+ characters in this file.
+approximately 51.99 minutes to type the 5199+ characters in this file.
  */
 
 

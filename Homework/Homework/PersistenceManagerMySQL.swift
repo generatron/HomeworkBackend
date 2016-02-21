@@ -36,12 +36,16 @@ class PersistenceManagerMySQL {
 	    var hWCourseRepository :  HWCourseRepositoryMySQL! 
 	    var hWCourseListRepository :  HWCourseListRepositoryMySQL! 
 	    init() {
-    	// Connect to Database. 
+    	// Connect to Database.
+    	let datasource : GeneratronDataSource = Config.sharedInstance.datasources["mysql"]!
+    	
     	do {
-        	 let connect = mysql.connect (Config.HOST, user:Config.USER, password: Config.PASSWORD)
+    		
+ 			 
+        	 let connect = mysql.connect (datasource.host, user:datasource.user, password: datasource.password)
         if (connect)
         {
-            let selectedSchema = mysql.selectDatabase (Config.SCHEMA)
+            let selectedSchema = mysql.selectDatabase (datasource.schema)
             if (selectedSchema)
             {
 			
@@ -62,10 +66,21 @@ class PersistenceManagerMySQL {
 			try hWCourseListRepository.createTable()
 }
 }
+
     	} catch (let e){
-        	print("Failure connecting to  " + Config.SCHEMA+"@"+Config.HOST)
+        	print("Failure connecting to MYSQL DB")
         	print(e)
     	}
+    	
+    }
+    
+    func checkConnection() -> Bool {
+    	let sql = "SELECT 1"
+		let queryResult = db.query(sql)
+		if(!queryResult){
+			 return  mysql.connect (datasource.host, user:datasource.user, password: datasource.password)
+		}
+		return queryResult
     }
 }
 
@@ -73,7 +88,7 @@ class PersistenceManagerMySQL {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 14.67 minutes to type the 1467+ characters in this file.
+approximately 18.37 minutes to type the 1837+ characters in this file.
  */
 
 

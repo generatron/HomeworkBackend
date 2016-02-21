@@ -29,9 +29,9 @@ import PerfectLib
 
 class IndexHandler: PageHandler { 
 
-	override func valuesForResponse(context: MustacheEvaluationContext, collector: MustacheEvaluationOutputCollector) throws -> MustacheEvaluationContext.MapType {
+ func valuesForResponse(context: MustacheEvaluationContext, collector: MustacheEvaluationOutputCollector) throws -> MustacheEvaluationContext.MapType {
 		
-		var values = [String:Any]
+		var values = [String:Any]()
 		
 		if let acceptStr = context.webRequest?.httpAccept() {
 			if acceptStr.contains("json") {
@@ -80,7 +80,7 @@ class IndexHandler: PageHandler {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 17.14 minutes to type the 1714+ characters in this file.
+approximately 17.07 minutes to type the 1707+ characters in this file.
  */
 
 

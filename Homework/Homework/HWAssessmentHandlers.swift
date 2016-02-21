@@ -19,37 +19,38 @@ Engineered using http://www.generatron.com/
 
 [GENERATRON]
 Generator :   System Templates
-Filename:     HWCourseListHandlers.swift
-Description:  HWCourseList Handlers for REST endpoints 
+Filename:     HWAssessmentHandlers.swift
+Description:  HWAssessment Handlers for REST endpoints 
 Project:      Homework
 Template: /PerfectSwift/server/entityHandlerClass.swift.vm
  */
 
 import PerfectLib
 
-class HWCourseListListHandler: RequestHandler  {
+class HWAssessmentListHandler: RequestHandler  {
   
   func handleRequest(request: WebRequest, response: WebResponse) {
-  	let hWCourseLists : [HWCourseList]  = PersistenceManagerMySQL.sharedInstance.hWCourseListRepository.list()
-  	print (NSJSONSerialization.isValidJSONObject (hWCourseLists ))
-  	do{
-        let json = try HWCourseList.encodeList(hWCourseLists );
+  do{
+  	let hWAssessments : [HWAssessment]  = try PersistenceManagerMySQL.sharedInstance.hWAssessmentRepository.list()
+  	print (NSJSONSerialization.isValidJSONObject (hWAssessments ))
+  	
+        let json = try HWAssessment.encodeList(hWAssessments );
         try response.outputJson(json)
   	}catch{
-  	  response.setStatus (500, message: "Could not list HWCourseList data")
+  	  response.setStatus (500, message: "Could not list HWAssessment data")
   	}
     //response.appendBodyString("Index handler: You accessed path \(request.requestURI())")
     response.requestCompletedCallback()
   }
 }
 
-class HWCourseListCreateHandler: RequestHandler {
+class HWAssessmentCreateHandler: RequestHandler {
   func handleRequest(request: WebRequest, response: WebResponse) {
-     let hWCourseList = HWCourseList() 
+     let hWAssessment = HWAssessment() 
      do {
-    	try hWCourseList.decode(request.postBodyString);
-    	let result = try PersistenceManagerMySQL.sharedInstance.hWCourseListRepository.insert(hWCourseList)
-    	let json = try hWCourseList.encode()
+    	try hWAssessment.decode(request.postBodyString);
+    	let result = try PersistenceManagerMySQL.sharedInstance.hWAssessmentRepository.insert(hWAssessment)
+    	let json = try hWAssessment.encode()
     	try response.outputJson(json)
     }catch{
         response.appendBodyString("Error accessing data:  \(error)")
@@ -58,27 +59,27 @@ class HWCourseListCreateHandler: RequestHandler {
   }
 }
 
-class HWCourseListRetrieveHandler: RequestHandler {
+class HWAssessmentRetrieveHandler: RequestHandler {
   func handleRequest(request: WebRequest, response: WebResponse) {
    let id = Int(request.urlVariables["id"]!)
     do{
-        let hWCourseList : HWCourseList  = try PersistenceManagerMySQL.sharedInstance.hWCourseListRepository.retrieve(id!)!
-        let json = try hWCourseList.encode()
+        let hWAssessment : HWAssessment  = try PersistenceManagerMySQL.sharedInstance.hWAssessmentRepository.retrieve(id!)!
+        let json = try hWAssessment.encode()
         try response.outputJson(json)
     }catch{
-        response.setStatus (500, message: "Could not retrieve HWCourseList \(id) data")
+        response.setStatus (500, message: "Could not retrieve HWAssessment \(id) data")
     }
     response.requestCompletedCallback()
   }
 }
 
-class HWCourseListUpdateHandler: RequestHandler {
+class HWAssessmentUpdateHandler: RequestHandler {
   func handleRequest(request: WebRequest, response: WebResponse) {
     do {
-     	let hWCourseList = HWCourseList() 
-    	try hWCourseList.decode(request.postBodyString);
-    	let result = try PersistenceManagerMySQL.sharedInstance.hWCourseListRepository.update(hWCourseList)
-    	let json = try hWCourseList.encode()
+     	let hWAssessment = HWAssessment() 
+    	try hWAssessment.decode(request.postBodyString);
+    	let result = try PersistenceManagerMySQL.sharedInstance.hWAssessmentRepository.update(hWAssessment)
+    	let json = try hWAssessment.encode()
     	try response.outputJson(json)
     }catch{
         response.appendBodyString("Error accessing data:  \(error)")
@@ -87,15 +88,15 @@ class HWCourseListUpdateHandler: RequestHandler {
   }
 }
 
-class HWCourseListDeleteHandler: RequestHandler {
+class HWAssessmentDeleteHandler: RequestHandler {
   func handleRequest(request: WebRequest, response: WebResponse) {
     let id = Int(request.urlVariables["id"]!)
     do{
-        let result = try PersistenceManagerMySQL.sharedInstance.hWCourseListRepository.delete(id!)
-        //let json = try hWCourseList.encode()
+        let result = try PersistenceManagerMySQL.sharedInstance.hWAssessmentRepository.delete(id!)
+        //let json = try hWAssessment.encode()
         try response.outputJson("{\"id\":\(id),\"message\":\"deleted\"}")
     }catch{
-        response.setStatus (500, message: "Could not delete HWCourseList \(id) data")
+        response.setStatus (500, message: "Could not delete HWAssessment \(id) data")
     }
     response.requestCompletedCallback()
   }
@@ -104,7 +105,7 @@ class HWCourseListDeleteHandler: RequestHandler {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 28.74 minutes to type the 2874+ characters in this file.
+approximately 28.82 minutes to type the 2882+ characters in this file.
  */
 
 

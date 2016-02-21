@@ -19,7 +19,7 @@ Engineered using http://www.generatron.com/
 
 [GENERATRON]
 Generator :   System Templates
-Filename:     HomeworkServer.swift
+Filename:     PerfectHandlers.swift
 Description:  Swift Server
 Project:      Homework
 Template: /PerfectSwift/server/ServerModuleInit.swift.vmg

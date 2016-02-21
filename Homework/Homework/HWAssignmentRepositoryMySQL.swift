@@ -19,26 +19,26 @@ Engineered using http://www.generatron.com/
 
 [GENERATRON]
 Generator :   System Templates
-Filename:     HWAssessmentRepositoryMySQL.swift
-Description:  Persistence code for for HWAssessment
+Filename:     HWAssignmentRepositoryMySQL.swift
+Description:  Persistence code for for HWAssignment
 Project:      Homework
 Template: /PerfectSwift/server/EntityRepositoryMySQL.swift.vm
  */
 
 
 import MySQL
-class HWAssessmentRepositoryMySQL : RepositoryMySQL {
+class HWAssignmentRepositoryMySQL : RepositoryMySQL {
 func createTable() throws ->  Int {
-   let rs = try db.query("CREATE TABLE IF NOT EXISTS HWAssessment (dateAssigned Date, dateDue Date, id BIGINT(20) NOT NULL AUTO_INCREMENT, name VARCHAR(255), type INT(10), PRIMARY KEY (id))")
+   let rs = try db.query("CREATE TABLE IF NOT EXISTS HWAssignment (dateAssigned Date, dateDue Date, id BIGINT(20) NOT NULL AUTO_INCREMENT, isCompleted BIT, name VARCHAR(255), type INT(10), PRIMARY KEY (id))")
    let errorCode = db.errorCode()
         if errorCode > 0 {
             throw RepositoryError.CreateTable(errorCode)
       }
       return 0;
 }
-func insert(entity: HWAssessment) throws -> Int {
-       	let sql = "INSERT INTO HWAssessment(dateAssigned,dateDue,name,type) VALUES ( ?, ?, ?, ?)"
-       	
+func insert(entity: HWAssignment) throws -> Int {
+       	let sql = "INSERT INTO HWAssignment(dateAssigned,dateDue,isCompleted,name,type) VALUES ( ?, ?, ?, ?, ?)"
+       	PersistenceManagerMySQL.sharedInstance.checkConnection();
        	let statement = MySQLStmt(db)
 		defer {
 			statement.close()
@@ -55,6 +55,13 @@ func insert(entity: HWAssessment) throws -> Int {
 
 		if(entity.dateDue != nil){
 			statement.bindParam(entity.dateDue.SQLDateString)
+		}else{
+			statement.bindParam()
+		}
+		
+
+		if(entity.isCompleted != nil){
+			statement.bindParam(entity.isCompleted)
 		}else{
 			statement.bindParam()
 		}
@@ -91,13 +98,13 @@ func insert(entity: HWAssessment) throws -> Int {
  	return 0
 	}
     
-	func update(entity: HWAssessment) throws -> Int {
+	func update(entity: HWAssignment) throws -> Int {
         guard let id = entity.id else {
             return 0
         }
         
-        let sql = "UPDATE HWAssessment SET dateAssigned= ? ,dateDue= ? ,name= ? ,type= ? WHERE id = ?"
-
+        let sql = "UPDATE HWAssignment SET dateAssigned= ? ,dateDue= ? ,isCompleted= ? ,name= ? ,type= ? WHERE id = ?"
+PersistenceManagerMySQL.sharedInstance.checkConnection();
 let statement = MySQLStmt(db)
 		defer {
 			statement.close()
@@ -115,6 +122,13 @@ let statement = MySQLStmt(db)
 
 		if(entity.dateDue != nil){
 			statement.bindParam(entity.dateDue.SQLDateString)
+		}else{
+			statement.bindParam()
+		}
+		
+
+		if(entity.isCompleted != nil){
+			statement.bindParam(entity.isCompleted)
 		}else{
 			statement.bindParam()
 		}
@@ -150,54 +164,98 @@ let statement = MySQLStmt(db)
     }
     
 	func delete(id: Int) throws -> Int {
-	    let sql = "DELETE FROM hWAssessment WHERE id = \(id)"
+	PersistenceManagerMySQL.sharedInstance.checkConnection();
+	    let sql = "DELETE FROM hWAssignment WHERE id = \(id)"
 	    let queryResult = db.query(sql)
 	    return id;
 	}
     
-    func retrieve(id: Int) throws -> HWAssessment? {
-        let sql = "SELECT dateAssigned,dateDue,id,name,type FROM HWAssessment WHERE id = \(id)"
+    func retrieve(id: Int) throws -> HWAssignment? {
+        let sql = "SELECT dateAssigned,dateDue,id,isCompleted,name,type FROM HWAssignment WHERE id = \(id)"
+        PersistenceManagerMySQL.sharedInstance.checkConnection();
 		let queryResult = db.query(sql)
+		 if(queryResult){
         let results = db.storeResults()!
-  		let hWAssessment = HWAssessment()
+  		let hWAssignment = HWAssignment()
         while let row = results.next() {
-			hWAssessment.dateAssigned = (row[0] as String).SQLStringDate();
-hWAssessment.dateDue = (row[1] as String).SQLStringDate();
-			hWAssessment.id = Int(row[2]);
-			hWAssessment.name = String(row[3]);
-			hWAssessment.type = Int(row[4]);
+			hWAssignment.dateAssigned = (row[0] as String).SQLStringDate();
+
+hWAssignment.dateDue = (row[1] as String).SQLStringDate();
+
+	hWAssignment.id = Int(row[2]);
+	
+			if(row[3] == "1"){
+			   	hWAssignment.isCompleted = Bool(true);
+			}else{
+				hWAssignment.isCompleted = Bool(false);
+			}
+
+	hWAssignment.name = String(row[4]);
+	
+	hWAssignment.type = Int(row[5]);
+	
             print(row)
         }
         results.close()
-	    return hWAssessment;
+	    return hWAssignment;
+	    }else{
+				print(" \(db.errorCode()) \(db.errorMessage())")
+				let errorCode = db.errorCode()
+				if errorCode > 0 {
+				    throw RepositoryError.Retrieve(errorCode)
+				}
+			}
+			return nil;
     }
     
-    func list() -> [HWAssessment] {
-        let sql = "SELECT dateAssigned,dateDue,id,name,type FROM HWAssessment "
-        var entities = [HWAssessment]()
-        
-        let queryResult = db.query(sql)
-        let results = db.storeResults()!
+    func list() throws -> [HWAssignment]  {
+        let sql = "SELECT dateAssigned,dateDue,id,isCompleted,name,type FROM HWAssignment "
+        PersistenceManagerMySQL.sharedInstance.checkConnection();
+        var entities = [HWAssignment]()
+         let queryResult = db.query(sql)
+        if(queryResult){
+
+		let results = db.storeResults()!
   
         while let row = results.next() {
-        	let hWAssessment = HWAssessment()
-			hWAssessment.dateAssigned = (row[0] as String).SQLStringDate();
-hWAssessment.dateDue = (row[1] as String).SQLStringDate();
-			hWAssessment.id = Int(row[2]);
-			hWAssessment.name = String(row[3]);
-			hWAssessment.type = Int(row[4]);
-			entities.append(hWAssessment)
+        	let hWAssignment = HWAssignment()
+			hWAssignment.dateAssigned = (row[0] as String).SQLStringDate();
+
+hWAssignment.dateDue = (row[1] as String).SQLStringDate();
+
+	hWAssignment.id = Int(row[2]);
+	
+			if(row[3] == "1"){
+			   	hWAssignment.isCompleted = Bool(true);
+			}else{
+				hWAssignment.isCompleted = Bool(false);
+			}
+
+	hWAssignment.name = String(row[4]);
+	
+	hWAssignment.type = Int(row[5]);
+	
+			entities.append(hWAssignment)
             print(row)
         }
         results.close()
         return entities
+			}else{
+				print(" \(db.errorCode()) \(db.errorMessage())")
+				let errorCode = db.errorCode()
+				if errorCode > 0 {
+				    throw RepositoryError.List(errorCode)
+				}
+				return [];
+			}
+			
     }
 }
 
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 44.32 minutes to type the 4432+ characters in this file.
+approximately 57.77 minutes to type the 5777+ characters in this file.
  */
 
 

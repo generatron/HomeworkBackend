@@ -38,7 +38,7 @@ func createTable() throws ->  Int {
 }
 func insert(entity: HWCourseList) throws -> Int {
        	let sql = "INSERT INTO HWCourseList() VALUES ()"
-       	
+       	PersistenceManagerMySQL.sharedInstance.checkConnection();
        	let statement = MySQLStmt(db)
 		defer {
 			statement.close()
@@ -69,7 +69,7 @@ func insert(entity: HWCourseList) throws -> Int {
         }
         
         let sql = "UPDATE HWCourseList SET  WHERE id = ?"
-
+PersistenceManagerMySQL.sharedInstance.checkConnection();
 let statement = MySQLStmt(db)
 		defer {
 			statement.close()
@@ -94,6 +94,7 @@ let statement = MySQLStmt(db)
     }
     
 	func delete(id: Int) throws -> Int {
+	PersistenceManagerMySQL.sharedInstance.checkConnection();
 	    let sql = "DELETE FROM hWCourseList WHERE id = \(id)"
 	    let queryResult = db.query(sql)
 	    return id;
@@ -101,39 +102,62 @@ let statement = MySQLStmt(db)
     
     func retrieve(id: Int) throws -> HWCourseList? {
         let sql = "SELECT id FROM HWCourseList WHERE id = \(id)"
+        PersistenceManagerMySQL.sharedInstance.checkConnection();
 		let queryResult = db.query(sql)
+		 if(queryResult){
         let results = db.storeResults()!
   		let hWCourseList = HWCourseList()
         while let row = results.next() {
-						hWCourseList.id = Int(row[0]);
+				hWCourseList.id = Int(row[0]);
+	
             print(row)
         }
         results.close()
 	    return hWCourseList;
+	    }else{
+				print(" \(db.errorCode()) \(db.errorMessage())")
+				let errorCode = db.errorCode()
+				if errorCode > 0 {
+				    throw RepositoryError.Retrieve(errorCode)
+				}
+			}
+			return nil;
     }
     
-    func list() -> [HWCourseList] {
+    func list() throws -> [HWCourseList]  {
         let sql = "SELECT id FROM HWCourseList "
+        PersistenceManagerMySQL.sharedInstance.checkConnection();
         var entities = [HWCourseList]()
-        
-        let queryResult = db.query(sql)
-        let results = db.storeResults()!
+         let queryResult = db.query(sql)
+        if(queryResult){
+
+		let results = db.storeResults()!
   
         while let row = results.next() {
         	let hWCourseList = HWCourseList()
-						hWCourseList.id = Int(row[0]);
+				hWCourseList.id = Int(row[0]);
+	
 			entities.append(hWCourseList)
             print(row)
         }
         results.close()
         return entities
+			}else{
+				print(" \(db.errorCode()) \(db.errorMessage())")
+				let errorCode = db.errorCode()
+				if errorCode > 0 {
+				    throw RepositoryError.List(errorCode)
+				}
+				return [];
+			}
+			
     }
 }
 
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 28.34 minutes to type the 2834+ characters in this file.
+approximately 35.97 minutes to type the 3597+ characters in this file.
  */
 
 

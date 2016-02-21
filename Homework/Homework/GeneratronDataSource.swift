@@ -19,39 +19,25 @@ Engineered using http://www.generatron.com/
 
 [GENERATRON]
 Generator :   System Templates
-Filename:     Config.swift
+Filename:     GeneratronDataSource.swift
 Description:  Server Configuration
 Project:      Homework
-Template: /PerfectSwift/server/Config.swift.vmg
+Template: /PerfectSwift/server/GeneratronDataSource.swift.vmg
  */
-import PerfectLib
-
-class Config {
-
-	static let serverPort = 9000
-    static let sessionName = "session"
-    static let sessionExpires = 60
-    static let uploadDirPath = PerfectServer.staticPerfectServer.homeDir() + "webroot/uploads/"
-    static let uploadDirUrl = "/uploads/"
-    
-	//SQLite Configuration
-    static let modelName = "Homework"
-    static let dbPath = PerfectServer.staticPerfectServer.homeDir() + serverSQLiteDBs + modelName
-    
-    //MySQL Configuration
-    static let HOST = "127.0.0.1"
-    static let USER = "perfect"
-    static let PASSWORD = "perfect123"
-    static let SCHEMA = "Homework"
-    
-    
+class GeneratronDataSource {
+    var name : String!
+    var type : String!
+    var host : String!
+    var schema : String!
+    var user : String!
+    var password : String!
+    var port : Int!
 }
-
 
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 6.47 minutes to type the 647+ characters in this file.
+approximately 2.02 minutes to type the 202+ characters in this file.
  */
 
 
