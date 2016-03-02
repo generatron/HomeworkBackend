@@ -38,10 +38,11 @@ func createTable() throws ->  Int {
 }
 func insert(entity: HWAssignment) throws -> Int {
        	let sql = "INSERT INTO HWAssignment(dateAssigned,dateDue,isCompleted,name,type) VALUES ( ?, ?, ?, ?, ?)"
-       	PersistenceManagerMySQL.sharedInstance.checkConnection();
+       	let db = PersistenceManagerMySQL.sharedInstance.connect();
        	let statement = MySQLStmt(db)
 		defer {
 			statement.close()
+			db.close();
 		}
 		let prepRes = statement.prepare(sql)
 		if(prepRes){
@@ -255,7 +256,7 @@ hWAssignment.dateDue = (row[1] as String).SQLStringDate();
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 57.77 minutes to type the 5777+ characters in this file.
+approximately 57.94 minutes to type the 5794+ characters in this file.
  */
 
 

@@ -38,10 +38,11 @@ func createTable() throws ->  Int {
 }
 func insert(entity: HWCourse) throws -> Int {
        	let sql = "INSERT INTO HWCourse(name,period) VALUES ( ?, ?)"
-       	PersistenceManagerMySQL.sharedInstance.checkConnection();
+       	let db = PersistenceManagerMySQL.sharedInstance.connect();
        	let statement = MySQLStmt(db)
 		defer {
 			statement.close()
+			db.close();
 		}
 		let prepRes = statement.prepare(sql)
 		if(prepRes){
@@ -201,7 +202,7 @@ let statement = MySQLStmt(db)
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 44.12 minutes to type the 4412+ characters in this file.
+approximately 44.29 minutes to type the 4429+ characters in this file.
  */
 
 

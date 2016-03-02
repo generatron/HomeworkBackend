@@ -31,6 +31,7 @@ import MySQL
 class PersistenceManagerMySQL {
 	static let sharedInstance = PersistenceManagerMySQL()
     var mysql = MySQL ()
+    var connected : Boolean = false;
         var hWAssessmentRepository :  HWAssessmentRepositoryMySQL! 
 	    var hWAssignmentRepository :  HWAssignmentRepositoryMySQL! 
 	    var hWCourseRepository :  HWCourseRepositoryMySQL! 
@@ -45,27 +46,28 @@ class PersistenceManagerMySQL {
         	 let connect = mysql.connect (datasource.host, user:datasource.user, password: datasource.password)
         if (connect)
         {
+        	connected = true;
             let selectedSchema = mysql.selectDatabase (datasource.schema)
             if (selectedSchema)
-            {
+            	{
 			
-			//Variables for HWAssessment
-			hWAssessmentRepository = HWAssessmentRepositoryMySQL(db:self.mysql);
-			try hWAssessmentRepository.createTable()
+				//Variables for HWAssessment
+				hWAssessmentRepository = HWAssessmentRepositoryMySQL(db:self.mysql);
+				try hWAssessmentRepository.createTable()
 			
-			//Variables for HWAssignment
-			hWAssignmentRepository = HWAssignmentRepositoryMySQL(db:self.mysql);
-			try hWAssignmentRepository.createTable()
+				//Variables for HWAssignment
+				hWAssignmentRepository = HWAssignmentRepositoryMySQL(db:self.mysql);
+				try hWAssignmentRepository.createTable()
 			
-			//Variables for HWCourse
-			hWCourseRepository = HWCourseRepositoryMySQL(db:self.mysql);
-			try hWCourseRepository.createTable()
+				//Variables for HWCourse
+				hWCourseRepository = HWCourseRepositoryMySQL(db:self.mysql);
+				try hWCourseRepository.createTable()
 			
-			//Variables for HWCourseList
-			hWCourseListRepository = HWCourseListRepositoryMySQL(db:self.mysql);
-			try hWCourseListRepository.createTable()
-}
-}
+				//Variables for HWCourseList
+				hWCourseListRepository = HWCourseListRepositoryMySQL(db:self.mysql);
+				try hWCourseListRepository.createTable()
+            	}
+			}
 
     	} catch (let e){
         	print("Failure connecting to MYSQL DB")
@@ -74,7 +76,7 @@ class PersistenceManagerMySQL {
     	
     }
     
-    func checkConnection() -> Bool {
+    func connect () -> Bool {
     	let sql = "SELECT 1"
 		let queryResult = db.query(sql)
 		if(!queryResult){
@@ -88,7 +90,7 @@ class PersistenceManagerMySQL {
 /* 
 [STATS]
 It would take a person typing  @ 100.0 cpm, 
-approximately 18.37 minutes to type the 1837+ characters in this file.
+approximately 19.25 minutes to type the 1925+ characters in this file.
  */
 
 
